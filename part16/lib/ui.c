@@ -26,9 +26,9 @@ void ui_init() {
     TTF_Init();
     printf("TTF INIT\n");
 
-    SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, 0, &sdlWindow, &sdlRenderer);
+    SDL_CreateWindowAndRenderer((SCREEN_WIDTH * scale)+160, (SCREEN_HEIGHT * scale)+144, 0, &sdlWindow, &sdlRenderer);
 
-    screen = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32,
+    screen = SDL_CreateRGBSurface(0, (SCREEN_WIDTH * scale)+160, (SCREEN_HEIGHT * scale)+144, 32,
                                             0x00FF0000,
                                             0x0000FF00,
                                             0x000000FF,
@@ -36,7 +36,7 @@ void ui_init() {
     sdlTexture = SDL_CreateTexture(sdlRenderer,
                                                 SDL_PIXELFORMAT_ARGB8888,
                                                 SDL_TEXTUREACCESS_STREAMING,
-                                                SCREEN_WIDTH, SCREEN_HEIGHT);
+                                                (SCREEN_WIDTH * scale)+160, (SCREEN_HEIGHT * scale)+144);
 
     SDL_CreateWindowAndRenderer(16 * 8 * scale, 32 * 8 * scale, 0, 
         &sdlDebugWindow, &sdlDebugRenderer);
@@ -67,6 +67,7 @@ u32 get_ticks() {
     return SDL_GetTicks();
 }
 
+static unsigned long ogbc_colors[4] = {0xFF9BBC0F, 0xFF8BAC0F, 0xFF306230, 0xFF0F380F};
 static unsigned long tile_colors[4] = {0xFFFFFFFF, 0xFFAAAAAA, 0xFF555555, 0xFF000000}; 
 
 void display_tile(SDL_Surface *surface, u16 startLocation, u16 tileNum, int x, int y) {
@@ -133,8 +134,8 @@ void ui_update() {
 
     for (int line_num = 0; line_num < YRES; line_num++) {
         for (int x = 0; x < XRES; x++) {
-            rc.x = x * scale;
-            rc.y = line_num * scale;
+            rc.x = x * (scale + 1);
+            rc.y = line_num * (scale + 1);
             rc.w = scale;
             rc.h = scale;
 

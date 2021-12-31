@@ -4,7 +4,8 @@
 
 static lcd_context ctx;
 
-static unsigned long colors_default[4] = {0xFFFFFFFF, 0xFFAAAAAA, 0xFF555555, 0xFF000000}; 
+static unsigned long colors_default[4] = {0xFFFFFFFF, 0xFFAAAAAA, 0xFF555555, 0xFF000000};
+static unsigned long ogbc_default[4] = {0xFF9BBC0F, 0xFF8BAC0F, 0xFF306230, 0xFF0F380F};  
 
 void lcd_init() {
     ctx.lcdc = 0x91;
@@ -19,9 +20,9 @@ void lcd_init() {
     ctx.win_x = 0;
 
     for (int i=0; i<4; i++) {
-        ctx.bg_colors[i] = colors_default[i];
-        ctx.sp1_colors[i] = colors_default[i];
-        ctx.sp2_colors[i] = colors_default[i];
+        ctx.bg_colors[i] = ogbc_default[i];
+        ctx.sp1_colors[i] = ogbc_default[i];
+        ctx.sp2_colors[i] = ogbc_default[i];
     }
 }
 
@@ -48,10 +49,10 @@ void update_palette(u8 palette_data, u8 pal) {
             break;
     }
 
-    p_colors[0] = colors_default[palette_data & 0b11];
-    p_colors[1] = colors_default[(palette_data >> 2) & 0b11];
-    p_colors[2] = colors_default[(palette_data >> 4) & 0b11];
-    p_colors[3] = colors_default[(palette_data >> 6) & 0b11];
+    p_colors[0] = ogbc_default[palette_data & 0b11];
+    p_colors[1] = ogbc_default[(palette_data >> 2) & 0b11];
+    p_colors[2] = ogbc_default[(palette_data >> 4) & 0b11];
+    p_colors[3] = ogbc_default[(palette_data >> 6) & 0b11];
 }
 
 void lcd_write(u16 address, u8 value) {
