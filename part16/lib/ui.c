@@ -18,7 +18,7 @@ SDL_Texture *sdlDebugTexture;
 SDL_Surface *debugScreen;
 
 static int scale = 1;
-static int sde = 6;
+static int sde = 0;
 
 void ui_init() {
     

@@ -137,7 +137,7 @@ void ppu_mode_vblank() {
     }
 }
 
-static u32 target_frame_time = 1000 / 60;
+static u32 target_frame_time = 1000 / 58;
 static long prev_frame_time = 0;
 static long start_timer = 0;
 static long frame_count = 0;
